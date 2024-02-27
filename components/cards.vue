@@ -1,28 +1,33 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 const props = defineProps<{
-  cards: any
-}>()
+  cards: any;
+}>();
 const emit = defineEmits<{
-  (e: 'dropCard', card: any): void
-}>()
+  (e: "dropCard", card: any): void;
+}>();
 
-
-function drag(card){
-  emit('dropCard',card)
+function drag(card) {
+  emit("dropCard", card);
 }
-
-
 </script>
 
 <template>
   <div class="cards">
-      <div class="card" v-for="card in props.cards" :key="card.cardId" draggable="true" @dragend="drag(card)">
-        <img :src="card.img"/>
-        {{ card }}
-      </div>
+    <div
+      v-for="card in props.cards"
+      :key="card.cardId"
+      class="card"
+      draggable="true"
+      @dragend="drag(card)"
+    >
+      <img :src="card.img" />
+    </div>
   </div>
 </template>
 
 <style scoped>
-
+.cards {
+  display: flex;
+  gap: 10px;
+}
 </style>
