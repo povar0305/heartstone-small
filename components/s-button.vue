@@ -43,6 +43,8 @@
   text-shadow: 0 0 4px #000, 0 0 8px #000;
   font-size: 1.25rem;
   letter-spacing: 2px;
+  font-family: 'Fondamento', cursive;
+
 }
 
 .hs-border{
@@ -53,14 +55,10 @@
   min-height: 35px;
   width: calc(100% - 6px);
   text-transform: uppercase;
-  font-family: 'Fondamento', cursive;
-  font-weight: normal;
   color: #fff;
   text-decoration: none;
   text-shadow: 1px 1px #000;
   font-size: 17px;
-  line-height: 1;
-  letter-spacing: 1px;
   text-align: center;
 }
 
