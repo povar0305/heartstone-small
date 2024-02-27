@@ -1,25 +1,37 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :class="{ 'open' : !start}">
+    <img v-if="start" class="bg" src="./assets/bg.jpg"  alt=""/>
+    <img v-else class="bg" src="./assets/start.jpg"  alt=""/>
     <s-button
       v-show="!start"
+      class="start-btn"
       @click="
-        start = true;
+        start = !start;
         setCards();
       "
       >Start
     </s-button>
-    <div class="inner">
-      <img
-        id="avatar"
-        :src="'https://robohash.org/' + hero.name"
-        alt=""
-        @drop="drop"
-        @dragover.prevent
-      />
-      {{ hero.name }}{{ hero.health }}
-    </div>
 
-    <cards v-show="start" :cards="data" @drop-card="selectCard" />
+      <div class="hero" v-show="start">
+        <img
+          class="avatar"
+          :src="'https://robohash.org/' + hero.name"
+          alt=""
+          @drop="drop"
+          @dragover.prevent
+        />
+        <div class="health">
+          <img
+            alt=""
+            src="https://cdn-icons-png.flaticon.com/512/893/893529.png"
+          />
+          <span>
+            {{ hero.health }}
+          </span>
+        </div>
+      </div>
+
+    <cards :cards="data" @drop-card="selectCard" />
   </div>
 </template>
 <script lang="ts" setup>
@@ -36,7 +48,6 @@ async function setCards() {
   const options = {
     method: "GET",
     url: "https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/sets/Naxxramas",
-    params: { locale: "ruRU" },
     headers: {
       "X-RapidAPI-Key": "2f2d323d21msh038c049da977301p114873jsn1e6d7e702dec",
       "X-RapidAPI-Host": "omgvamp-hearthstone-v1.p.rapidapi.com",
@@ -47,7 +58,6 @@ async function setCards() {
     if (response.data) {
       filtredCard.value = response.data.filter((element) => {
         if (element.type == "Minion") {
-          console.log(element);
           return element;
         }
       });
@@ -65,7 +75,7 @@ async function setCards() {
 const optionsHero = {
   method: "GET",
   url: "https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/types/Hero",
-  params: { health: "30", locale: "ruRU" },
+  params: { health: "30" },
   headers: {
     "X-RapidAPI-Key": "2f2d323d21msh038c049da977301p114873jsn1e6d7e702dec",
     "X-RapidAPI-Host": "omgvamp-hearthstone-v1.p.rapidapi.com",
@@ -97,12 +107,86 @@ function drop(event) {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .wrapper {
   display: flex;
   flex-direction: column;
-  padding: 3rem;
   position: fixed;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+
+  &.open
+  {
+    justify-content: space-between;
+
+  }
+}
+
+.health {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  right: -20px;
+  bottom: -35px;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+
+  img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  span {
+    width: auto;
+    z-index: 2;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    font-family: "Fondamento", cursive;
+  }
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: -20px auto auto;
+  align-items: center;
+
+  .avatar {
+    width: 150px;
+    margin-top: -66px;
+  }
+}
+
+:deep() {
+  .cards {
+    .card:first-child {
+      transform: rotateZ(-3deg);
+    }
+
+    .card:last-child {
+      transform: rotateZ(3deg);
+    }
+  }
+}
+</style>
+
+<style>
+body {
+  margin: 0;
 }
 </style>

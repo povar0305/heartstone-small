@@ -29,5 +29,16 @@ function drag(card) {
 .cards {
   display: flex;
   gap: 10px;
+  justify-content: center;
+  width: 100%;
+
+  .card {
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }
 </style>

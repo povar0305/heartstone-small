@@ -1,21 +1,20 @@
-<script setup lang="ts">
-
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div class="hs-wrapper classic">
     <a class="hs-button classic">
-			<span class="hs-border classic">
-			<span class="hs-text classic">
-        <slot>Text</slot>
-			</span>
-			</span>
+      <span class="hs-border classic">
+        <span class="hs-text classic">
+          <slot>Text</slot>
+        </span>
+      </span>
     </a>
   </div>
-
 </template>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Fondamento:ital@0;1&display=swap");
+
 .hs-wrapper {
   cursor: pointer;
   width: 200px;
@@ -43,11 +42,10 @@
   text-shadow: 0 0 4px #000, 0 0 8px #000;
   font-size: 1.25rem;
   letter-spacing: 2px;
-  font-family: 'Fondamento', cursive;
-
+  font-family: "Fondamento", cursive;
 }
 
-.hs-border{
+.hs-border {
   display: table;
   padding: 3px;
   border-radius: 2px;
@@ -63,41 +61,37 @@
 }
 
 .hs-wrapper.classic {
-  background: linear-gradient(to bottom,
-  #c1b3b0,
-  #c1b3b0 9%,
-  #4a3424 93%,
-  #1c140d);
-  border-top: 2px solid #AD9A90;
+  background: linear-gradient(
+    to bottom,
+    #c1b3b0,
+    #c1b3b0 9%,
+    #4a3424 93%,
+    #1c140d
+  );
+  border-top: 2px solid #ad9a90;
   border-bottom: 2px solid #1c140d;
 }
+
 .hs-button.classic {
-  background: linear-gradient(to bottom,
-  #6f5742,
-  #81615d);
+  background: linear-gradient(to bottom, #6f5742, #81615d);
 }
 
 .hs-text.classic {
-  background: radial-gradient(circle,
-  #bc22c7 25%,
-  #7c1693 75%,
-  #5c1096);
+  background: radial-gradient(circle, #bc22c7 25%, #7c1693 75%, #5c1096);
 }
 
 .hs-border.classic {
   box-shadow: 0 2px 6px 0 #331e0b;
-  background: linear-gradient(to bottom,
-  #f756fe,
-  #c84bd6 5%,
-  #7305ae 59%,
-  #661f91);
+  background: linear-gradient(
+    to bottom,
+    #f756fe,
+    #c84bd6 5%,
+    #7305ae 59%,
+    #661f91
+  );
 }
 
 .hs-border:hover .hs-text.classic {
-  background: radial-gradient(circle,
-  #e235ee 22%,
-  #981cb4);
+  background: radial-gradient(circle, #e235ee 22%, #981cb4);
 }
-
-
 </style>
