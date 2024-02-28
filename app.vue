@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper" :class="{ 'open' : !start}">
-    <img v-if="start" class="bg" src="./assets/bg.jpg"  alt=""/>
-    <img v-else class="bg" src="./assets/start.jpg"  alt=""/>
+  <div class="wrapper" :class="{ open: start }">
+    <img v-if="start" class="bg" src="./assets/bg.jpg" alt="" />
+    <img v-else class="bg" src="./assets/start.jpg" alt="" />
     <s-button
       v-show="!start"
       class="start-btn"
@@ -9,27 +9,32 @@
         start = !start;
         setCards();
       "
-      >Start
+      >Start{{ start }}
     </s-button>
-
-      <div class="hero" v-show="start">
-        <img
-          class="avatar"
-          :src="'https://robohash.org/' + hero.name"
-          alt=""
-          @drop="drop"
-          @dragover.prevent
-        />
-        <div class="health">
-          <img
-            alt=""
-            src="https://cdn-icons-png.flaticon.com/512/893/893529.png"
-          />
-          <span>
-            {{ hero.health }}
-          </span>
-        </div>
+    <div class="hero" v-show="start">
+      <img
+        class="avatar"
+        :src="'https://robohash.org/' + hero.name"
+        alt=""
+        @drop="drop"
+        @dragover.prevent
+      />
+      <div class="attack" v-show="attack">
+        <div class="star"/>
+        <span>
+          - {{ attack }}
+        </span>
       </div>
+      <div class="health">
+        <img
+          alt=""
+          src="https://cdn-icons-png.flaticon.com/512/893/893529.png"
+        />
+        <span>
+          {{ hero.health }}
+        </span>
+      </div>
+    </div>
 
     <cards :cards="data" @drop-card="selectCard" />
   </div>
@@ -101,9 +106,13 @@ const selectedCard = ref(null);
 function selectCard(card) {
   selectedCard.value = card;
 }
-
-function drop(event) {
+const attack = ref(null)
+function drop() {
+  attack.value=selectedCard.value.attack;
   hero.value.health = hero.value.health - selectedCard.value.attack;
+  setTimeout(
+      ()=> {attack.value = null}
+      ,500)
 }
 </script>
 
@@ -117,10 +126,8 @@ function drop(event) {
   height: 100vh;
   justify-content: center;
 
-  &.open
-  {
+  &.open {
     justify-content: space-between;
-
   }
 }
 
@@ -163,12 +170,13 @@ function drop(event) {
   position: relative;
   display: flex;
   flex-direction: column;
-  margin: -20px auto auto;
+  margin: auto;
   align-items: center;
+  transition: 1s ease-in-out;
 
   .avatar {
     width: 150px;
-    margin-top: -66px;
+    margin-top: -85px;
   }
 }
 
@@ -181,6 +189,28 @@ function drop(event) {
     .card:last-child {
       transform: rotateZ(3deg);
     }
+  }
+}
+
+.attack{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .star{
+    position: relative;
+    background: goldenrod;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 65% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    width: 120px;
+    height: 120px;
+  }
+  span{
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-family: "Fondamento", cursive;
+    text-wrap: nowrap;
+    font-size: 2rem;
   }
 }
 </style>

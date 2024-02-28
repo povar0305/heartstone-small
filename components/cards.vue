@@ -9,19 +9,22 @@ const emit = defineEmits<{
 function drag(card) {
   emit("dropCard", card);
 }
+
+import { VueDraggableNext } from "vue-draggable-next";
 </script>
 
 <template>
   <div class="cards">
-    <div
+    <vue-draggable-next
       v-for="card in props.cards"
       :key="card.cardId"
+      :list="props.cards"
       class="card"
       draggable="true"
-      @dragend="drag(card)"
+      @drag="drag(card)"
     >
       <img :src="card.img" />
-    </div>
+    </vue-draggable-next>
   </div>
 </template>
 
