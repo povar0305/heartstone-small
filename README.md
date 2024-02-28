@@ -1,78 +1,62 @@
-# Nuxt 3 Minimal Starter
+# Мини версия Heartstone
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install the dependencies:
+## Установка + загрузка зависимостей
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
+## dev сборка
 
-Start the development server on `http://localhost:3000`:
+Будет находиться на `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
+## Билд
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Превью:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Check out the [Документация по NNxt3](https://nuxt.com/docs/getting-started/deployment) for more information.
 
+[Репозиторий](https://github.com/anish2690/vue-draggable-next), с которого брала драг н дроп
 
-https://github.com/anish2690/vue-draggable-next
+# Скриншоты
+
+## Десктоп
+
+### Первый экран
+
+![img.png](img.png)
+
+### Выбор карты
+
+![img_3.png](img_3.png)
+
+### Получение урона
+
+![img_4.png](img_4.png)
+
+## Мобилка
+
+### Первый экран
+
+![img_1.png](img_1.png)
+
+### Выбор карты
+
+![img_2.png](img_2.png)
+
+### Получение урона
+
+![img_5.png](img_5.png)
+

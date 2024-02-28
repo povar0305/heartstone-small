@@ -34,6 +34,8 @@ import { VueDraggableNext } from "vue-draggable-next";
   gap: 10px;
   justify-content: center;
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   .card {
     cursor: pointer;
