@@ -1,48 +1,24 @@
 <template>
   <div class="wrapper" :class="{ open: start }">
     <img v-if="start" class="bg" src="./assets/bg.jpg" alt="" />
-    <img v-else class="bg" src="./assets/start.jpg" alt="" />
+    <img v-if="!start" class="bg" src="./assets/start.jpg" alt="" />
     <s-button
       v-show="!start"
       class="start-btn"
       @click="
-        start = !start;
         setCards();
       "
-      >Start{{ start }}
+      >Start
     </s-button>
-    <div class="hero" v-show="start">
-      <img
-        class="avatar"
-        :src="'https://robohash.org/' + hero.name"
-        alt=""
-        @drop="drop"
-        @dragover.prevent
-      />
-      <div class="attack" v-show="attack">
-        <div class="star"/>
-        <span>
-          - {{ attack }}
-        </span>
-      </div>
-      <div class="health">
-        <img
-          alt=""
-          src="https://cdn-icons-png.flaticon.com/512/893/893529.png"
-        />
-        <span>
-          {{ hero.health }}
-        </span>
-      </div>
-    </div>
-
-    <cards :cards="data" @drop-card="selectCard" />
+    <hero :attack="attack" :hero="hero"  @drop="drop" v-show="start "/>
+    <cards :cards="data" @drop-card="selectCard" v-if="start"/>
   </div>
 </template>
 <script lang="ts" setup>
 import SButton from "~/components/s-button.vue";
 import axios from "axios";
 import Cards from "~/components/cards.vue";
+import Hero from "~/components/hero.vue"
 
 const filtredCard = ref(null);
 const data = ref([]);
@@ -71,6 +47,8 @@ async function setCards() {
           filtredCard.value[randomInteger(0, filtredCard.value.length - 1)]
         );
       }
+      start.value = !start.value;
+
     }
   } catch (error) {
     console.error(error);
@@ -106,6 +84,7 @@ const selectedCard = ref(null);
 function selectCard(card) {
   selectedCard.value = card;
 }
+
 const attack = ref(null)
 function drop() {
   attack.value=selectedCard.value.attack;
@@ -113,6 +92,12 @@ function drop() {
   setTimeout(
       ()=> {attack.value = null}
       ,500)
+  data.value.splice(data.value.indexOf(selectedCard.value),1)
+  data.value.push(
+      filtredCard.value[randomInteger(0, filtredCard.value.length - 1)]
+  )
+
+start.value=hero.value.health>0
 }
 </script>
 
@@ -131,33 +116,6 @@ function drop() {
   }
 }
 
-.health {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  right: -20px;
-  bottom: -35px;
-  width: 48px;
-  height: 48px;
-  justify-content: center;
-
-  img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  span {
-    width: auto;
-    z-index: 2;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    font-family: "Fondamento", cursive;
-  }
-}
-
 .bg {
   position: absolute;
   width: 100%;
@@ -166,19 +124,6 @@ function drop() {
   z-index: -1;
 }
 
-.hero {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  align-items: center;
-  transition: 1s ease-in-out;
-
-  .avatar {
-    width: 150px;
-    margin-top: -85px;
-  }
-}
 
 :deep() {
   .cards {
@@ -192,27 +137,6 @@ function drop() {
   }
 }
 
-.attack{
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .star{
-    position: relative;
-    background: goldenrod;
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 65% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    width: 120px;
-    height: 120px;
-  }
-  span{
-    position: absolute;
-    color: white;
-    font-weight: bold;
-    font-family: "Fondamento", cursive;
-    text-wrap: nowrap;
-    font-size: 2rem;
-  }
-}
 </style>
 
 <style>
