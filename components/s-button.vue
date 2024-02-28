@@ -1,5 +1,3 @@
-<script lang="ts" setup></script>
-
 <template>
   <div class="hs-wrapper classic">
     <a class="hs-button classic">
